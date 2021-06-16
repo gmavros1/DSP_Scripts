@@ -1,4 +1,4 @@
-%% Load Signal - band isolation
+%% Load Signal - band isolation - plot spot diffs
 clear all;
 load EEG_data.mat
 
@@ -14,7 +14,19 @@ for i = 1:5
 end
 
 % filteredSignal(sensor index, signal values, band)
-% plot
+% plot first 10 secs
+
+sensor = 5; % say the 5th sensor 
+
+figure(1)
+subplot(2,3,1);plot(data(sensor,1:10*Fs));title("EEG");
+
+bandsTitle = ["Delta" "Theta" "Alpha" "Beta" "Gamma"];
+for i = 1:5
+    subplot(2,3,i+1);plot(filteredSignal(sensor,1:10*Fs, i));title(bandsTitle(i));
+end
+
+%% represent each EEG band as a dynamical trajectory 
 
 
 
