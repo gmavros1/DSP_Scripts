@@ -28,5 +28,25 @@ end
 
 %% represent each EEG band as a dynamical trajectory 
 
+[XX, eLAG, eDIM] = phaseSpaceReconstruction(data(sensor,1:10*Fs));
+[XX1, eLAG1, eDIM1] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 1));
+[XX2, eLAG2, eDIM2] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 2));
+[XX3, eLAG3, eDIM3] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 3));
+[XX4, eLAG4, eDIM4] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 4));
+[XX5, eLAG5, eDIM5] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 5));
+
+figure(2);
+subplot(2,3,1);plot3(XX(1:1000,1),XX(1:1000,2),XX(1:1000,3));grid
+title("EEG");
+subplot(2,3,2);plot3(XX1(1:1000,1),XX1(1:1000,2),XX1(1:1000,3));grid
+title("Delta");
+subplot(2,3,3);plot3(XX2(1:1000,1),XX2(1:1000,2),XX2(1:1000,3));grid
+title("Theta");
+subplot(2,3,4);plot3(XX3(1:1000,1),XX3(1:1000,2),XX3(1:1000,3));grid
+title("Alpha");
+subplot(2,3,5);plot3(XX4(1:1000,1),XX4(1:1000,2),XX4(1:1000,3));grid
+title("Beta");
+subplot(2,3,6);plot3(XX5(1:1000,1),XX5(1:1000,2),XX5(1:1000,3));grid
+title("Gamma");
 
 
