@@ -35,6 +35,24 @@ end
 [XX4, eLAG4, eDIM4] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 4));
 [XX5, eLAG5, eDIM5] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 5));
 
+% Predictability of the EEG-trace - approximateEntropy
+
+aE1 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 1)),eLAG,eDIM);
+aE2 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 2)),eLAG,eDIM);
+aE3 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 3)),eLAG,eDIM);
+aE4 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 4)),eLAG,eDIM);
+aE5 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 5)),eLAG,eDIM);
+
+% level of chaotic complexity in the EEG-trace - correlationDimension
+
+cDim1 = correlationDimension((filteredSignal(sensor,1:10*Fs, 1)),eLAG,eDIM);
+cDim2 = correlationDimension((filteredSignal(sensor,1:10*Fs, 2)),eLAG,eDIM);
+cDim3 = correlationDimension((filteredSignal(sensor,1:10*Fs, 3)),eLAG,eDIM);
+cDim4 = correlationDimension((filteredSignal(sensor,1:10*Fs, 4)),eLAG,eDIM);
+cDim5 = correlationDimension((filteredSignal(sensor,1:10*Fs, 5)),eLAG,eDIM);
+
+
+
 figure(2);
 subplot(2,3,1);plot3(XX(1:1000,1),XX(1:1000,2),XX(1:1000,3));grid
 title("EEG");
