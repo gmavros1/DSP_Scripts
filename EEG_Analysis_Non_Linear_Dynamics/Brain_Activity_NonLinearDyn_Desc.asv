@@ -1,4 +1,6 @@
-%% Load Signal - band isolation - plot spot diffs
+%% A NonLinear Dynamics description of the brain activity as a function of brain-rhythm
+
+%  Load Signal - band isolation - plot spot diffs
 clear all;
 load EEG_data.mat
 
@@ -9,14 +11,14 @@ coeffsB = [];
 filteredSignal = [];
 
 for i = 1:5
-    [coeffsA(i,:), coeffsB(i,:)]= butter(5,bands(i,:)/(Fs/2));  %%% Nnormalize frequencies - bandpass filter (order 5) - coeffs
+    [coeffsA(i,:), coeffsB(i,:)]= butter(5,bands(i,:)/(Fs/2));  %%% Nnormalize frequencies - bandpass filter (order 5 of filter) - coeffs
     filteredSignal(:,:,i)=filtfilt(coeffsA(i,:),coeffsB(i,:),data')'; %%% every element of the array is a band of the signal
 end
 
 % filteredSignal(sensor index, signal values, band)
 % plot first 10 secs
 
-sensor = 5; % say the 5th sensor 
+sensor = 5; % Say the 5th sensor 
 
 figure(1)
 subplot(2,3,1);plot(data(sensor,1:10*Fs));title("EEG");
@@ -26,7 +28,7 @@ for i = 1:5
     subplot(2,3,i+1);plot(filteredSignal(sensor,1:10*Fs, i));title(bandsTitle(i));
 end
 
-%% represent each EEG band as a dynamical trajectory 
+% represent each EEG band as a dynamical trajectory 
 
 [XX, eLAG, eDIM] = phaseSpaceReconstruction(data(sensor,1:10*Fs));
 [XX1, eLAG1, eDIM1] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 1));
@@ -35,7 +37,7 @@ end
 [XX4, eLAG4, eDIM4] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 4));
 [XX5, eLAG5, eDIM5] = phaseSpaceReconstruction(filteredSignal(sensor,1:10*Fs, 5));
 
-% Predictability of the EEG-trace - approximateEntropy
+% Predictability of the EEG-trace for every band - approximateEntropy
 
 aE1 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 1)),eLAG1,eDIM1);
 aE2 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 2)),eLAG2,eDIM2);
@@ -43,7 +45,7 @@ aE3 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 3)),eLAG3,eDIM3);
 aE4 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 4)),eLAG4,eDIM4);
 aE5 = approximateEntropy((filteredSignal(sensor,1:10*Fs, 5)),eLAG5,eDIM5);
 
-% level of chaotic complexity in the EEG-trace - correlationDimension
+% level of chaotic complexity in the EEG-trace for every ban - correlationDimension
 
 cDim1 = correlationDimension((filteredSignal(sensor,1:10*Fs, 1)),eLAG1,eDIM1);
 cDim2 = correlationDimension((filteredSignal(sensor,1:10*Fs, 2)),eLAG2,eDIM2);
@@ -51,7 +53,7 @@ cDim3 = correlationDimension((filteredSignal(sensor,1:10*Fs, 3)),eLAG3,eDIM3);
 cDim4 = correlationDimension((filteredSignal(sensor,1:10*Fs, 4)),eLAG4,eDIM4);
 cDim5 = correlationDimension((filteredSignal(sensor,1:10*Fs, 5)),eLAG5,eDIM5);
 
-%% Plot
+% Plot
 
 figure(2);
 subplot(2,3,1);plot3(XX(1:1000,1),XX(1:1000,2),XX(1:1000,3));grid
