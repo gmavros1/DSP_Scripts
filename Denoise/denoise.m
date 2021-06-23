@@ -27,8 +27,8 @@ legend("clear Signal", "Signal with noise");
 % Denoise
 
 yDenoised = wdenoise(ynoise,10,'Wavelet','db1');
-yDenoised = wdenoise(yDenoised,5,'Wavelet','db1');
 
+% Results
 
 figure(3);
 subplot(2,2,1); plot(time, y); title('Clear Signal'); xlabel("Seconds")
@@ -37,7 +37,7 @@ subplot(2,2,3); plot(time, y); title('Denoised Signal'); xlabel("Seconds")
 subplot(2,2,4); plot(time, y, time, yDenoised); title('Denoised Signal - Clear signal'); xlabel("Seconds");
 legend("Clear","Denoised");
 
-% sound(yDenoised,Fs)
+sound(yDenoised,Fs)
 
 
 
