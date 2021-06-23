@@ -37,7 +37,7 @@ subplot(2,2,3); plot(time, y); title('Denoised Signal'); xlabel("Seconds")
 subplot(2,2,4); plot(time, y, time, yDenoised); title('Denoised Signal - Clear signal'); xlabel("Seconds");
 legend("Clear","Denoised");
 
-sound(yDenoised,Fs)
+% sound(yDenoised,Fs)
 
 
 
